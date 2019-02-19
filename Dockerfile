@@ -1,5 +1,5 @@
 FROM debian:jessie-slim
-MAINTAINER Rob Cherry
+MAINTAINER Stefan Surzycki
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
@@ -42,6 +42,10 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     apt-get -yqq update && \
     apt-get -yqq install google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
+
+# Configure test files
+RUN mkdir /test_uploads
+ADD ./test_uploads /test_uploads
 
 # Configure Supervisor
 ADD ./etc/supervisord.conf /etc/
